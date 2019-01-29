@@ -1,0 +1,281 @@
+<html>
+  <head>
+    <title>VIS Project</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.12.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="js/classes/DistanceMatrix.js"></script>
+    <script src="js/classes/SparkLineContainer.js"></script>
+    <script src="js/classes/DetailPathContainer.js"></script>
+    <script src="js/d3-extended/d3-extended.min.js"></script>
+    <script src="js/details.js"></script>
+    <script src="js/d3-lasso.min.js"></script>
+    <script src="js/detailPath.js"></script>
+    <script src="js/highlight.js"></script>
+    <script src="js/heatmap.js"></script>
+    <script src="js/linechart.js"></script>
+    <script src="js/filter.js"></script>
+    <script src="js/sparklines.js"></script>
+    <script src="js/scatterplot.js"></script>
+    <link rel="stylesheet" href="css/spinner.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/colreorder/1.4.1/css/colReorder.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.0.2/css/rowGroup.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.3/css/rowReorder.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/1.4.3/css/scroller.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.4/css/select.dataTables.min.css"/>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/colreorder/1.4.1/js/dataTables.colReorder.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.0.2/js/dataTables.rowGroup.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/scroller/1.4.3/js/dataTables.scroller.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/bootstrap-slider.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="tooltipland"></div>
+    <div class="sparklinecontainer container page1 padding-top-15">
+      <div id="filterrow" class="row">
+        <div class="filterbox col">
+          <div class="container">
+            <div class="row margin-left-0">
+              <span class="filterbox">No. Semesters</span>
+            </div>
+            <div class="row margin-left-5">
+              <input id="filternosemesters" type="text"/>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <span id="semminval"></span>
+              </div>
+              <div class="col-sm-6">
+                <span id="semmaxval" class="float-right"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterbox col">
+          <div class="container">
+            <div class="row margin-left-0">
+              <span class="filterbox">ECTS</span><br/>
+            </div>
+            <div class="row margin-left-5">
+              <input id="filterects" type="text"/><br/>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <span id="ectminval"></span>
+              </div>
+              <div class="col-sm-6">
+                <span id="ectmaxval" class="float-right"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterbox col">
+          <div class="container">
+            <div class="row margin-left-0">
+              <span class="filterbox">Max ECTS in one Semester</span><br/>
+            </div>
+            <div class="row margin-left-5">
+              <input id="filtermaxects" type="text"/><br/>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <span id="mesminval"></span>
+              </div>
+              <div class="col-sm-6">
+                <span id="mesmaxval" class="float-right"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterbox col">
+          <div class="container">
+            <div class="row margin-left-0">
+              <span class="filterbox">Mean ECTS/ Semester</span><br/>
+            </div>
+            <div class="row margin-left-5">
+              <input id="filtermeanects" type="text"/><br/>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <span id="epsminval"></span>
+              </div>
+              <div class="col-sm-6">
+                <span id="epsmaxval" class="float-right"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterbox col">
+          <div class="container">
+            <div class="row margin-left-0">
+              <span class="filterbox">First Semester</span><br/>
+            </div>
+            <div class="row margin-left-5">
+              <input id="filterstartsemester" type="text"/><br/>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <span id="firminval"></span>
+              </div>
+              <div class="col-sm-6">
+                <span id="firmaxval" class="float-right"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterbox col">
+          <div class="container">
+            <div class="row margin-left-0">
+              <span class="filterbox">Mean Grade</span><br/>
+            </div>
+            <div class="row margin-left-5">
+              <input id="filtermeangrade" type="text"/><br/>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <span id="meaminval"></span>
+              </div>
+              <div class="col-sm-6">
+                <span id="meamaxval" class="float-right"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterbox col">
+          <div class="container">
+            <div class="row margin-left-0">
+              <span class="filterbox">Median Grade</span><br/>
+            </div>
+            <div class="row margin-left-5">
+              <input id="filtermediangrade" type="text"/><br/>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <span id="medminval"></span>
+              </div>
+              <div class="col-sm-6">
+                <span id="medmaxval" class="float-right"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterbox col">
+          <div class="container margin-left-0">
+            <span class="filterbox">Status</span><br/>
+            <select id="filterstatus">
+              <option></option>
+              <option>offen</option>
+              <option>beendet</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row padding-top-20">
+        <table id="sparktable" class="sparktable tablesorter compact cell-border" cell-spacing="0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th></th>
+              <th>StudyID</th>
+              <th>No. Semester</th>
+              <th>ECTS</th>
+              <th>Max ECTS in one Semester</th>
+              <th>Mean ECTS/ Semester</th>
+              <th>First Semester</th>
+              <th>Mean Grade</th>
+              <th>Median Grade</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="sparklinecontainer">
+          </tbody>
+        </table>
+      </div>
+      <div class="row padding-top-20">
+        <div class="col text-center">
+          <a href="#" id="selectAllButton" class="btn btn-primary" role="button">select all shown</a>
+        </div>
+        <div class="col text-center">
+          <a href="#" id="selectAllRows" class="btn btn-primary" role="button">select all rows</a>
+        </div>
+        <div class="col text-center">
+          <a href="#" id="clearSelection" class="btn btn-primary disabled" role="button">clear selection</a>
+        </div>
+        <div class="col text-center">
+          <a href="#" id="applySelection" class="btn btn-primary disabled">analyze selected</a>
+        </div>
+      </div>
+    </div>
+    <div class="container page2 padding-top-15">
+			<div class="row">
+        <div class="col">
+          <div id="exTab3" class="container">
+            <ul  class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" href="#1b" data-toggle="tab">MDS Scatterplot</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="#2b" data-toggle="tab">Heatmap</a>
+              </li>
+            </ul>
+
+            <div class="tab-content clearfix padding-top-15">
+              <div class="tab-pane active" id="1b">
+                <div class="scatterplot"></div>
+              </div>
+              <div class="tab-pane" id="2b">
+                <div class="heatmap"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col col-lg2">
+          <a href="#" id="backToSelection" class="btn btn-primary" role="button">back to selection</a>
+          <div class="smalllines"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="dpaths container"></div>
+        </div>
+      </div>
+		</div>
+
+    <div id="loading" class="lds-css ng-scope hidden">
+      <div class="lds-spinner" style="100%;height:100%">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+				Preparing Dataset
+      </div>
+    </div>
+    <div id='test'></div>
+    <script src="js/bootstrap/bootstrap-slider.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

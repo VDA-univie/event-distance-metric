@@ -1,0 +1,41 @@
+{
+  "name": "d3-extended",
+  "version": "2.0.0",
+  "description": "Extends D3 Selection with helpful functions which are similar to the jQuery API.",
+  "keywords": [
+    "d3",
+    "d3-module"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "build/d3-extended.js",
+  "jsnext:main": "index",
+  "homepage": "https://github.com/wbkd/d3-extended",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wbkd/d3-extended.git"
+  },
+  "scripts": {
+    "docs": "jsdoc -c jsdoc.json",
+    "test": "tape 'test/**/*-test.js'",
+    "build": "rollup -c rollup.config.js && rollup -c rollup.min.config.js"
+  },
+  "dependencies": {
+    "d3-selection": "^1.0.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
+    "docdash": "^0.4.0",
+    "jsdoc": "^3.5.4",
+    "jsdoc-template": "git+https://github.com/braintree/jsdoc-template.git",
+    "jsdom": "^9.12.0",
+    "rollup": "0.27",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-butternut": "^0.1.0",
+    "rollup-plugin-multi-dest": "^1.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "simulate": "0.0.5",
+    "tape": "4"
+  }
+}

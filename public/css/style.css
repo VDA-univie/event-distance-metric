@@ -1,0 +1,231 @@
+:root{
+  --volatile-highlight: red;
+  --permanent-highlight: #E9A125;
+  --hm-highlight-stroke-width: 3;
+  --highlight-stroke-width: 3;
+}
+
+div.margin-left-0 {
+  margin-left: 0px;
+}
+
+div.margin-left-5 {
+  margin-left: 5px;
+}
+
+div.padding-top-20 {
+  padding-top: 20px;
+}
+
+div.padding-top-15 {
+  padding-top: 15px;
+}
+
+div.smalllines{
+  font-size: 14px;
+  padding-top: 15px;
+}
+
+div.heatmap{
+  width: 660px;
+}
+
+div.scatterplot{
+  width: 660px;
+}
+
+svg.heatMapHighlighted{
+  border: 2px solid var(--volatile-highlight);
+}
+
+svg.heatMapHighlightedStatic{
+  border: 2px solid var(--permanent-highlight);
+}
+
+.detailPathHighlighted{
+  fill: var(--volatile-highlight);
+}
+
+.detailPathHighlightedStatic{
+  fill: var(--permanent-highlight);
+}
+
+svg.smallLine{
+  margin: 1px;
+}
+
+svg.smallLineHighlightedStatic{
+  margin: 0px;
+  border: 1px solid var(--permanent-highlight);
+  box-sizing: content-box; 
+}
+
+svg.smallLineHighlighted{
+  margin: 0px;
+  border: 1px solid var(--volatile-highlight);
+  box-sizing: content-box; 
+}
+
+div.tooltipland{
+  position: fixed;
+  z-index: 50;
+}
+
+.sptooltip {
+  background-color: white;
+  position: absolute;
+  width: 100px;
+  height: 28px;
+  pointer-events: none;
+}
+
+.hmtooltip {
+  background-color: white;
+  position: absolute;
+  width: 90px;
+  height: 55px;
+  pointer-events: none;
+  padding-left: 2px;
+  opacity: 0.6;
+  line-height: 1.15;
+}
+
+.detailPathTooltip {
+  background-color: white;
+  position: absolute;
+  max-width: 150px;
+  pointer-events: none;
+  padding-left: 2px;
+  opacity: 0.6;
+  line-height: 1.15;
+}
+
+.linetooltip {
+  background-color: white;
+  position: absolute;
+  width: 100px;
+  height: 38px;
+  pointer-events: none;
+  padding-left: 2px;
+}
+
+.lasso path {
+	stroke: rgb(80,80,80);
+	stroke-width:2px;
+}
+
+.lasso .drawn {
+	fill-opacity:.05 ;
+}
+
+.lasso .loop_close {
+	fill:none;
+	stroke-dasharray: 4,4;
+}
+
+.lasso .origin {
+	fill:#3399FF;
+	fill-opacity:.5;
+}
+
+.not_possible {
+	fill: rgb(200,200,200);
+}
+
+.possible {
+	fill: #EC888C;
+}
+
+.selected {
+	stroke: var(--permanent-highlight);
+  stroke-width: var(--highlight-stroke-width);
+}
+
+.selectedvolatile {
+	stroke: var(--volatile-highlight);
+  stroke-width: var(--highlight-stroke-width);
+}
+
+.hmselected {
+	stroke: var(--permanent-highlight);
+  stroke-width: var(--hm-highlight-stroke-width);
+}
+
+.hmselectedvolatile {
+	stroke: var(--volatile-highlight);
+  stroke-width: var(--hm-highlight-stroke-width);
+}
+
+div.filterbox {
+  height: 70px;
+}
+
+#semesterslider .slider-selection,
+#ectsslider .slider-selection,
+#peakslider .slider-selection,
+#meansemesterectsslider .slider-selection,
+#meangradeslider .slider-selection,
+#mediangradeslider .slider-selection
+{
+  background: #c6dbef;
+}
+
+.hidden{
+  display:none;
+}
+
+.paginate_button {
+  padding: 0.5em;
+}
+
+#exTab3 > ul.nav-pills > li > a {
+  padding : 10px ;
+  border-radius: 4px 4px 0 0 ;
+}
+
+#exTab3.tab-content {
+  color : white;
+  padding : 5px 15px;
+}
+
+#loading {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100;
+  height: 100;
+  text-align: center;
+}
+
+div.detailPathContainer {
+  padding-top: 20px;
+}
+
+div.detailpath.details {
+  display: table;
+  width: 330;
+}
+
+div.detailpath.meta {
+  display: table-row;
+}
+
+div.detailpath.meta > span.text {
+  display: table-cell;
+  text-align: right;
+  padding-right: 3;
+}
+
+div.detailpath.meta > span.content {
+  display: table-cell;
+}
+
+.dataTables_paginate,
+.dataTables_info{
+  font-size: 15;
+}
+
+

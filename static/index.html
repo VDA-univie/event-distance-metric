@@ -1,0 +1,23 @@
+<html>
+<head>
+  <title>Testpage</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+</head>
+<body>
+testpage
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    socket = io('127.0.0.1:5000', {path: ''})
+    socket.emit("getLineData")
+    console.log("connected")
+
+    socket.on('lineData', r =>{
+      console.log("lineData", r)
+      socket.emit("visualizeData", [1, 2])
+    })
+
+    //socket.emit("getAllLineData")
+  })
+</script>
+</body>
+</html>
